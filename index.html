@@ -43,29 +43,47 @@
 <body>
   <div class="wrapper">
     <h1>🔥 Hold SPACE to hear the McLaren 720S 🔥</h1>
-    <p>Nghe tiếng pô cực chill như đang ngồi trong xe!</p>
-    <audio src="mclaren720s_sound.mp3" id="pohuy" preload="auto"></audio>
+    <p>Thả tay, pô rút dần, như thật 😎</p>
+    <audio src="mclaren720s_sound.mp3" id="quochung" preload="auto"></audio>
   </div>
 
   <script>
-    const audio = document.getElementById("pohuy");
+    const audio = document.getElementById("quochung");
     let isHolding = false;
+    let fadeOutInterval;
 
+    // Khi giữ SPACE
     window.addEventListener("keydown", (e) => {
       if (e.code === "Space" && !isHolding) {
         isHolding = true;
+
+        clearInterval(fadeOutInterval); // nếu đang fade thì huỷ
+        audio.volume = 1;
         audio.currentTime = 0;
         audio.play();
       }
     });
 
+    // Khi buông SPACE
     window.addEventListener("keyup", (e) => {
       if (e.code === "Space") {
         isHolding = false;
-        audio.pause();
-        audio.currentTime = 0;
+        fadeOutAudio();
       }
     });
+
+    function fadeOutAudio() {
+      fadeOutInterval = setInterval(() => {
+        if (audio.volume > 0.05) {
+          audio.volume -= 0.05; // giảm dần volume
+        } else {
+          clearInterval(fadeOutInterval);
+          audio.pause();
+          audio.currentTime = 0;
+          audio.volume = 1; // reset lại âm lượng
+        }
+      }, 100); // mỗi 100ms giảm 1 chút
+    }
   </script>
 </body>
 </html>
