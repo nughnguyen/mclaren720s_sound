@@ -1,46 +1,67 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>McLaren 720S Exhaust Sound</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>McLaren 720S Sound</title>
   <style>
-    body {
-      background-color: #000;
-      color: #fff;
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: black;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       font-family: Arial, sans-serif;
-      text-align: center;
-      padding-top: 100px;
+      color: white;
+    }
+    .wrapper {
+      width: 90%;
+      max-width: 900px;
+      aspect-ratio: 3 / 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border: 3px solid orange;
+      border-radius: 12px;
+      padding: 20px;
+      box-sizing: border-box;
     }
     h1 {
-      font-size: 2.5em;
-      color: #ff6600;
+      font-size: 2rem;
+      margin-bottom: 20px;
     }
     p {
-      font-size: 1.2em;
-      color: #ccc;
-    }
-    .glow {
-      font-size: 100px;
-      color: #ff6600;
-      text-shadow: 0 0 20px #ff6600, 0 0 40px #ff6600, 0 0 60px #ff6600;
+      font-size: 1.1rem;
     }
   </style>
 </head>
 <body>
-  <h1>Press & Hold <span class="glow">SPACE</span> to Hear the McLaren 720S</h1>
-  <p>Release to stop. Close your eyes and feel the horsepower.</p>
-  <audio id="pohuy" src="mclaren720s_sound.mp3" preload="auto"></audio>
+  <div class="wrapper">
+    <h1>🔥 Hold SPACE to hear the McLaren 720S 🔥</h1>
+    <p>Nghe tiếng pô cực chill như đang ngồi trong xe!</p>
+    <audio src="mclaren720s_sound.mp3" id="pohuy" preload="auto"></audio>
+  </div>
+
   <script>
-    document.addEventListener('keydown', function(e) {
-      if (e.code === 'Space') {
-        const audio = document.getElementById('pohuy');
-        if (audio.paused) audio.play();
+    const audio = document.getElementById("pohuy");
+    let isHolding = false;
+
+    window.addEventListener("keydown", (e) => {
+      if (e.code === "Space" && !isHolding) {
+        isHolding = true;
+        audio.currentTime = 0;
+        audio.play();
       }
     });
-    document.addEventListener('keyup', function(e) {
-      if (e.code === 'Space') {
-        const audio = document.getElementById('pohuy');
+
+    window.addEventListener("keyup", (e) => {
+      if (e.code === "Space") {
+        isHolding = false;
         audio.pause();
         audio.currentTime = 0;
       }
